@@ -26,10 +26,7 @@ namespace MVCProject.Models
 
         public Users user { get; set; }
 
-        [ForeignKey("librarian")]
-        public int librarian_ID { get; set; }
-
-        public Librarians librarian { get; set; }
+       
 
 
 
