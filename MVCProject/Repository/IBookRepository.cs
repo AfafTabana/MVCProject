@@ -9,7 +9,7 @@ namespace MVCProject.Repository
 
         public Books GetBookById(int id);
 
-        public Books GetBookByTitle(string title);
+        public List<Books> SearchBookByTitle(string title);
 
         public void AddBook(Books book);
 

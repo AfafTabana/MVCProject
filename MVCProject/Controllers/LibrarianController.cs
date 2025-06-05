@@ -28,5 +28,14 @@ namespace MVCProject.Controllers
             DisplayLibrarianViewModel displayLibrarianViewModel = mapper.Map<DisplayLibrarianViewModel>(librarian);
             return View("DisplayLibrarianView", displayLibrarianViewModel);
         }
+
+        public IActionResult SearchLibrarianByName(string name)
+        {
+            List<Librarians> librarians = librarianRepository.SearchLibrarianByName(name);
+            List<DisplayLibrarianViewModel> displayLibrarianViewModels = mapper.Map<List<DisplayLibrarianViewModel>>(librarians);
+            return View("AllLibrariansView", displayLibrarianViewModels);
+        }
+
+
     }
 }

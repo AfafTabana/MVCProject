@@ -39,12 +39,12 @@ namespace MVCProject.Repository
             return librarian;
         }
 
-        public Librarians GetLibrarianByName(string name)
+        public List<Librarians> SearchLibrarianByName(string name)
         {
-            Librarians librarian = _context.Librarians
+            List<Librarians> librarians = _context.Librarians
                 .Where(l => l.Name.Contains(name))
-                .FirstOrDefault();
-            return librarian;
+                .ToList();
+            return librarians;
         }
 
         public void UpdateLibrarian(Librarians librarian)

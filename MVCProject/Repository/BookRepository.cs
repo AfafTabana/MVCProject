@@ -37,10 +37,10 @@ namespace MVCProject.Repository
             return _context.Books.Find(id);
         }
 
-        public Books GetBookByTitle(string title)
+        public List<Books> SearchBookByTitle(string title)
         {
             return _context.Books
-                .FirstOrDefault(b => b.Title.Contains(title));
+                .Where(b => b.Title.Contains(title)).ToList();
         }
 
         public void UpdateBook(Books book)

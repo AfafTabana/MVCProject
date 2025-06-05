@@ -8,7 +8,7 @@ namespace MVCProject.Repository
 
         public Librarians GetLibrarianById(int id);
 
-        public Librarians GetLibrarianByName(string name);
+        public List<Librarians> SearchLibrarianByName(string name);
 
         public void AddLibrarian(Librarians librarian);
 
