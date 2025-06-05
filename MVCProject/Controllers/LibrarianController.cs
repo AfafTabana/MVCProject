@@ -10,7 +10,7 @@ namespace MVCProject.Controllers
     {
         ILibrarianRepository librarianRepository;
         IMapper mapper;
-        public LibrarianController(ILibrarianRepository librarianRepository,IMapper mapper)
+        public LibrarianController(ILibrarianRepository librarianRepository, IMapper mapper)
         {
             this.librarianRepository = librarianRepository;
             this.mapper = mapper;
@@ -18,7 +18,7 @@ namespace MVCProject.Controllers
         public IActionResult GetAllLibrarians()
         {
             List<Librarians> librarians = librarianRepository.GetAllLibrarians();
-            List<DisplayLibrarianViewModel> displayLibrarianViewModels= mapper.Map<List<DisplayLibrarianViewModel>>(librarians);
+            List<DisplayLibrarianViewModel> displayLibrarianViewModels = mapper.Map<List<DisplayLibrarianViewModel>>(librarians);
             return View("AllLibrariansView", displayLibrarianViewModels);
         }
 
@@ -40,7 +40,7 @@ namespace MVCProject.Controllers
         {
             Librarians librarian = librarianRepository.GetLibrarianById(id);
             EditLibrarianViewModel editLibrarianViewModel = mapper.Map<EditLibrarianViewModel>(librarian);
-            return View("EditLibrarianView",editLibrarianViewModel);
+            return View("EditLibrarianView", editLibrarianViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -53,6 +53,29 @@ namespace MVCProject.Controllers
                 return RedirectToAction("GetAllLibrarians");
             }
             return View("EditLibrarianView", librarianViewModel);
+        }
+
+        public IActionResult DeleteLibrarian(int id)
+        {
+            librarianRepository.DeleteLibrarian(id);
+            return Json(true);
+        }
+
+        public IActionResult AddLibrarianView()
+        {
+            return View("AddLibrarianView");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddLibrarian(AddLibrarianViewModel librarianViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Librarians librarian = mapper.Map<Librarians>(librarianViewModel);
+                librarianRepository.AddLibrarian(librarian);
+                return RedirectToAction("GetAllLibrarians");
+            }
+            return View("AddLibrarianView", librarianViewModel);
         }
     }
 }
