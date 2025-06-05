@@ -14,7 +14,7 @@ namespace MVCProject.Models
 
         public string City {  get; set; }
 
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         public string? street { get; set; }
 
