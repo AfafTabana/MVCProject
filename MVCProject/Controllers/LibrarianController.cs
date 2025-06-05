@@ -36,6 +36,23 @@ namespace MVCProject.Controllers
             return View("AllLibrariansView", displayLibrarianViewModels);
         }
 
-
+        public IActionResult UpdateLibrarianView(int id)
+        {
+            Librarians librarian = librarianRepository.GetLibrarianById(id);
+            EditLibrarianViewModel editLibrarianViewModel = mapper.Map<EditLibrarianViewModel>(librarian);
+            return View("EditLibrarianView",editLibrarianViewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateLibrarian(EditLibrarianViewModel librarianViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Librarians librarian = mapper.Map<Librarians>(librarianViewModel);
+                librarianRepository.UpdateLibrarian(librarian);
+                return RedirectToAction("GetAllLibrarians");
+            }
+            return View("EditLibrarianView", librarianViewModel);
+        }
     }
 }

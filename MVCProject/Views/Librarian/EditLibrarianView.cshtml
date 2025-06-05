@@ -1,0 +1,46 @@
+﻿@model EditLibrarianViewModel 
+
+@{
+    ViewData["Title"] = "Edit Librarian";
+}
+
+<h2>Edit Librarian</h2>
+
+@if (Model == null)
+{
+    <div class="alert alert-warning">
+        No librarian data found.
+    </div>
+}
+else
+{
+    <form asp-action="UpdateLibrarian" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Salary" class="control-label"></label>
+            <input asp-for="Salary" class="form-control" />
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="National_Number" class="control-label"></label>
+            <input asp-for="National_Number" class="form-control" />
+            <span asp-validation-for="National_Number" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="HireDate" class="control-label"></label>
+            <input asp-for="HireDate" class="form-control"  />
+            <span asp-validation-for="HireDate" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+}
