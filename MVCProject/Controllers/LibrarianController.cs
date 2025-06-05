@@ -58,7 +58,7 @@ namespace MVCProject.Controllers
         public IActionResult DeleteLibrarian(int id)
         {
             librarianRepository.DeleteLibrarian(id);
-            return Json(true);
+            return RedirectToAction("GetAllLibrarians");
         }
 
         public IActionResult AddLibrarianView()
