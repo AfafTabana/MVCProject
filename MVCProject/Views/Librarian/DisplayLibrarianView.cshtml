@@ -1,0 +1,29 @@
+﻿@model DisplayLibrarianViewModel
+
+@{
+    ViewData["Title"] = "Librarian Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model == null)
+{
+    <div class="alert alert-warning" style="margin-top: 20px;">
+        No librarian found.
+    </div>
+}
+else
+{
+    <div class="card" style="width: 24rem; margin-top: 20px;">
+        <div class="card-body">
+            <h5 class="card-title">Librarian Information</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>ID:</strong> @Model.Id</li>
+                <li class="list-group-item"><strong>Name:</strong> @Model.Name</li>
+                <li class="list-group-item"><strong>Salary:</strong> @Model.Salary.ToString("C")</li>
+                <li class="list-group-item"><strong>Hire Date:</strong> @Model.HireDate</li>
+                <li class="list-group-item"><strong>National Number:</strong> @Model.National_Number</li>
+            </ul>
+        </div>
+    </div>
+}

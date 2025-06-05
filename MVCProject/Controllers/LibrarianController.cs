@@ -21,5 +21,12 @@ namespace MVCProject.Controllers
             List<DisplayLibrarianViewModel> displayLibrarianViewModels= mapper.Map<List<DisplayLibrarianViewModel>>(librarians);
             return View("AllLibrariansView", displayLibrarianViewModels);
         }
+
+        public IActionResult GetLibrarianById(int id)
+        {
+            Librarians librarian = librarianRepository.GetLibrarianById(id);
+            DisplayLibrarianViewModel displayLibrarianViewModel = mapper.Map<DisplayLibrarianViewModel>(librarian);
+            return View("DisplayLibrarianView", displayLibrarianViewModel);
+        }
     }
 }
