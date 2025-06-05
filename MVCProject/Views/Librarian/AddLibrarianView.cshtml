@@ -1,30 +1,82 @@
-﻿@model AddLibrarianViewModel
-@{
-    ViewData["Title"] = "Add Librarian";
-}
+﻿@model  AddLibrarianViewModel
 
-<h2>@ViewData["Title"]</h2>
 
-<form asp-action="AddLibrarian" method="post">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-4xl mx-auto p-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8 animate-fade-in">
+            <div>
+                <h1 class="text-3xl font-bold text-indigo-700">Add New Librarian</h1>
+                <p class="text-gray-500 mt-1">Fill in the librarian details below</p>
+            </div>
+            <div class="bg-indigo-100 p-4 rounded-full">
+                <i class="fas fa-user-plus text-indigo-600 text-2xl"></i>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden animate-fade-in">
+            <div class="p-6 sm:p-8">
+                <form asp-action="AddLibrarian" method="post" class="space-y-6">
+                    <!-- Name Field -->
+                    <div class="form-input border rounded-lg px-4 py-3 transition-all duration-200">
+                        <label asp-for="Name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <div class="flex items-center">
+                           
+                            <input asp-for="Name" class="w-full outline-none text-gray-700 placeholder-gray-400 form-control" placeholder="John Doe" value="@Model?.Name">
+                        </div>
+                        <span asp-validation-for="Name" class="text-red-500 text-xs mt-1"></span>
+                    </div>
+
+                    <!-- Salary Field -->
+                    <div class="form-input border rounded-lg px-4 py-3 transition-all duration-200">
+                        <label asp-for="Salary" class="block text-sm font-medium text-gray-700 mb-1">Salary</label>
+                        <div class="flex items-center">
+                          
+                            <input asp-for="Salary" type="number" step="0.01"
+                                   class="w-full outline-none text-gray-700 placeholder-gray-400 form-control"
+                                   placeholder="5000.00"
+                            value="@Model?.Salary">
+                        </div>
+                        <span asp-validation-for="Salary" class="text-red-500 text-xs mt-1"></span>
+                    </div>
+
+                    <!-- Hire Date Field -->
+                    <div class="form-input border rounded-lg px-4 py-3 transition-all duration-200">
+                        <label asp-for="HireDate" class="block text-sm font-medium text-gray-700 mb-1">Hire Date</label>
+                        <div class="flex items-center">
+                          
+                            <input asp-for="HireDate" type="date"
+                                   class="w-full outline-none text-gray-700 form-control" value="@Model?.HireDate">
+                        </div>
+                        <span asp-validation-for="HireDate" class="text-red-500 text-xs mt-1"></span>
+                    </div>
+
+                    <!-- National Number Field -->
+                    <div class="form-input border rounded-lg px-4 py-3 transition-all duration-200">
+                        <label asp-for="National_Number" class="block text-sm font-medium text-gray-700 mb-1">National Number</label>
+                        <div class="flex items-center">
+                            
+                            <input asp-for="National_Number"
+                                   class="w-full outline-none text-gray-700 placeholder-gray-400 form-control"
+                                   placeholder="1234567890"  value="@Model?.National_Number">
+                        </div>
+                        <span asp-validation-for="National_Number" class="text-red-500 text-xs mt-1"></span>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="flex flex-col sm:flex-row justify-end gap-4 pt-4">
+                     
+                        <button type="submit" 
+                                class="btn btn-primary">
+                           Add Librarian
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+      
     </div>
-    <div class="form-group">
-        <label asp-for="Salary"></label>
-        <input asp-for="Salary" class="form-control" type="number" step="0.01" />
-        <span asp-validation-for="Salary" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="HireDate"></label>
-        <input asp-for="HireDate" class="form-control" type="date" />
-        <span asp-validation-for="HireDate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="National_Number"></label>
-        <input asp-for="National_Number" class="form-control" />
-        <span asp-validation-for="National_Number" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Librarian</button>
-</form>
+
+</body>
