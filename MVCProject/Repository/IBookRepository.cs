@@ -4,17 +4,17 @@ namespace MVCProject.Repository
 {
     public interface IBookRepository
     {
-      
-        IEnumerable<Books> GetAllBooks();
-        
-        Books GetBookById(int id);
 
-        Books GetBookByTitle(string title);
+        public IEnumerable<Books> GetAllBooks();
 
-        void AddBook(Books book);
-        
-        void UpdateBook(Books book);
-        
-        void DeleteBook(int id);
+        public Books GetBookById(int id);
+
+        public Books GetBookByTitle(string title);
+
+        public void AddBook(Books book);
+
+        public void UpdateBook(Books book);
+
+        public void DeleteBook(int id);
     }
 }
