@@ -1,0 +1,42 @@
+﻿@model List<DisplayLibrarianViewModel>
+
+@{
+    ViewData["Title"] = "All Librarians";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Hire Date</th>
+                <th>National Number</th>
+              
+                <!-- Add more columns as needed based on your DisplayLibrarianViewModel properties -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var librarian in Model)
+            {
+                <tr>
+                    <td>@librarian.Id</td>
+                    <td>@librarian.Name</td>
+                    <td>@librarian.Salary</td>
+                    <td>@librarian.HireDate</td>
+                    <td>@librarian.National_Number</td>
+                  
+                    <!-- Add more cells as needed -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No librarians found.</p>
+}

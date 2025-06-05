@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MVCProject.Mapper;
 using MVCProject.Models;
+using MVCProject.Repository;
 using System;
 
 namespace MVCProject
@@ -15,6 +17,11 @@ namespace MVCProject
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<LibraryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("db")));
+
+            builder.Services.AddAutoMapper(typeof(LibrarianMapper),typeof(BookMapper));
+            builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+
 
             var app = builder.Build();
 

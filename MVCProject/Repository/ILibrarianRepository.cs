@@ -4,7 +4,7 @@ namespace MVCProject.Repository
 {
     public interface ILibrarianRepository
     {
-       public IEnumerable<Librarians> GetAllLibrarians();
+       public List<Librarians> GetAllLibrarians();
 
         public Librarians GetLibrarianById(int id);
 
