@@ -12,7 +12,9 @@ namespace MVCProject.Models
 
         public double Price { set; get; }
 
-        public int Copies_Number {get; set; }
+        public int Borrow_quantity {get; set; }
+
+        public int Buy_quantity { get; set; }
 
         [StringLength(50)]
         public string Publisher_Name { get; set; }
