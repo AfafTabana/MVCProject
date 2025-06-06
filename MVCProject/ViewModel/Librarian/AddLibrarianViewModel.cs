@@ -26,6 +26,7 @@ namespace MVCProject.ViewModel.Librarian
                 }
             }
         }
+        [MaxLength(14,ErrorMessage ="Maximum Number is 14 Digits")]
         public string National_Number { get; set; }
     }
 }
