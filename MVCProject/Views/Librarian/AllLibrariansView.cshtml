@@ -8,9 +8,22 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card shadow-sm border-0">
+
                 <div class="card-header bg-primary text-white d-flex align-items-center">
                     <h2 class="mb-0"><i class="bi bi-people-fill me-2"></i>@ViewData["Title"]</h2>
                 </div>
+
+                <form method="get" action="/librarian/GetLibrarianById" class="d-flex ms-auto m-2" style="max-width: 350px;">
+                    <input type="text" name="id" class="form-control me-2" placeholder="Search by ID"  />
+                    <button type="submit" class="btn btn-light">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+
+
+
+
+
                 <div class="card-body bg-light">
                     @if (Model != null && Model.Any())
                     {
