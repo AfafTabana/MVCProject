@@ -75,7 +75,7 @@ namespace MVCProject.Controllers
                 librarianRepository.AddLibrarian(librarian);
                 return RedirectToAction("GetAllLibrarians");
             }
-            return View("AddLibrarianView", librarianViewModel);
+            return View("AddLibrarianViewr", librarianViewModel);
         }
     }
 }
