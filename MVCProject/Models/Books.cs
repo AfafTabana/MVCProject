@@ -10,6 +10,10 @@ namespace MVCProject.Models
 
         public string Title { set; get; }
 
+        public string ImageUrl { set; get; }
+
+        public string Description { set; get; }
+
         public double Price { set; get; }
 
         public int Borrow_quantity {get; set; }

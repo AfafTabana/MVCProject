@@ -7,6 +7,11 @@
 
         public double Price { set; get; }
 
+        public string Description { set; get; }
+
+        public string ImageUrl { set; get; }
+
+
         public int Borrow_quantity { get; set; }
 
         public int Buy_quantity { get; set; }

@@ -5,6 +5,10 @@
         public int ID { set; get; }
         public string Title { set; get; }
 
+        public string Description { set; get; }
+
+        public string ImageUrl { set; get; }
+
         public double Price { set; get; }
 
         public int Borrow_quantity { get; set; }
