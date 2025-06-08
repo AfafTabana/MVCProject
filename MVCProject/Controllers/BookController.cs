@@ -37,6 +37,7 @@ namespace MVCProject.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddBook(AddBookViewModel Book )
         {
             if (ModelState.IsValid) {
