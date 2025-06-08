@@ -1,8 +1,11 @@
-﻿namespace MVCProject.ViewModel.Book
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MVCProject.ViewModel.Book
 {
     public class DisplayBookUserViewModel
     {
 
+        public int ID { set; get; }
         public string Title { set; get; }
 
         public double Price { set; get; }
@@ -21,5 +24,9 @@
         public string Author_Name { get; set; }
 
         public int Borrow_Price { set; get; }
+        public int AvailableQuantity { get; set; }
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "please enter a valid quantity")]
+        public int QuantityToBuy { get; set; }
     }
 }
