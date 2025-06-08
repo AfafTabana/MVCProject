@@ -1,0 +1,30 @@
+﻿@model List<BuyBookViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Available Books</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Available</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.BookTitle</td>
+                <td>@book.Price</td>
+                <td>@book.AvailableQuantity</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("BuyBook", "Book", new { id = book.BookId })">Buy</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
