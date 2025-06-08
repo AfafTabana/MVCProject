@@ -8,12 +8,14 @@ namespace MVCProject.Controllers
 {
     public class BookController : Controller
     {
+        ICategoriesRepository catRepository;
         IBookRepository bookRepository;
         IMapper mapper;
-        public BookController(IBookRepository bookRepository , IMapper mapper)
+        public BookController(IBookRepository bookRepository , IMapper mapper, ICategoriesRepository catRepository)
         {
             this.bookRepository = bookRepository;
             this.mapper = mapper;
+            this.catRepository = catRepository;
         }
 
         public IActionResult DisplayAllBooksForUser()
@@ -30,9 +32,13 @@ namespace MVCProject.Controllers
             return View("DisplayAllBooksForLibrarian", Books);
         }
 
-        public IActionResult AddingBook() { 
-         
-            return View("AddBook");
+        public IActionResult AddingBook() {
+
+            AddBookViewModel Bookfromreq = new()
+            {
+                Cat_list = catRepository.GetAllCategories()
+            };
+            return View("AddBook",Bookfromreq);
         
         }
 
@@ -45,6 +51,7 @@ namespace MVCProject.Controllers
                 return RedirectToAction("DisplayAllBooksForUser");
 
             }
+
 
             return View("AddBook" , Book);
 
@@ -72,7 +79,7 @@ namespace MVCProject.Controllers
         public IActionResult SearchBookByTitle(string title) { 
           
            List<Books> Books = bookRepository.SearchBookByTitle(title);
-           List<DisplayBookUserViewModel> _Books = mapper.Map<List<DisplayBookUserViewModel>>(Books) ;
+            List<DisplayBookUserViewModel> _Books = mapper.Map<List<DisplayBookUserViewModel>>(Books);
            return View("DisplayByTitle" , _Books);
         }
       
