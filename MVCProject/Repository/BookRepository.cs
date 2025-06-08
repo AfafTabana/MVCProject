@@ -45,8 +45,26 @@ namespace MVCProject.Repository
 
         public void UpdateBook(Books book)
         {
-            _context.Books.Update(book);
+            var existing = _context.Books.FirstOrDefault(e=>e.ID == book.ID);
+            if (existing != null)
+            {
+
+                existing.Title = book.Title;
+                existing.Price = book.Price;
+                existing.Description = book.Description;
+                existing.ImageUrl = book.ImageUrl;
+                existing.Borrow_quantity = book.Borrow_quantity;
+                existing.Buy_quantity = book.Buy_quantity;
+                existing.Publisher_Name = book.Publisher_Name;
+                existing.Author_Name = book.Author_Name;
+                existing.Borrow_Price = book.Borrow_Price;
+                existing.Cat_Id = book.Cat_Id;
+
+              
+            }
+
             _context.SaveChanges();
         }
+
     }
 }
