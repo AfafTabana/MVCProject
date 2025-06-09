@@ -8,11 +8,16 @@ namespace MVCProject.Controllers
 {
     public class BookController : Controller
     {
+        
         IBookRepository bookRepository;
         IMapper mapper;
-        public BookController(IBookRepository bookRepository , IMapper mapper)
+
+        IBorrowRepository Borrow;
+
+        public BookController(IBookRepository bookRepository ,IBorrowRepository borrow, IMapper mapper)
         {
             this.bookRepository = bookRepository;
+            Borrow = borrow;
             this.mapper = mapper;
         }
 
@@ -103,5 +108,141 @@ namespace MVCProject.Controllers
             return View("EditBook" , Book); 
         
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #region Borrowing Books
+
+        public IActionResult BorrowBookView()
+        {
+            //if book borrow quantity is 0, then the book cannot be borrowed and does not show the borrow button
+
+
+            //take book data from the book card  and in the DisplayBookDetails view 
+            //and pass it to the BorrowBookView
+            //make form wuth pre-filled book details
+            //borrowbook action will handle the form submission and retrieve the user input 
+
+
+            // Assuming you have a way to get the list of books and users for the dropdowns
+            //it is linked to a button in the DisplayBookDetails view
+            //triggered when the user clicks on "Borrow Book"
+
+            return View("BorrowBookView");
+
+        }
+
+
+        [HttpPost]
+        public IActionResult BorrowBook() {       
+            int bookId = Convert.ToInt32(Request.Form["bookId"]);//getting bookId from form data
+            int userId = Convert.ToInt32(Request.Form["userId"]);//getting userId from form data
+            DateTime startDate = DateTime.Now; // Assuming the borrowing starts now[should get that from form ]
+            DateTime dueDate = startDate.AddDays(14); // Assuming a 2-week borrowing period
+            
+            Borrow borrow = new Borrow
+            {
+                Book_ID = bookId,
+                User_ID = userId,
+                StartDate = startDate,
+                DueDate = dueDate,
+                Price = 0 // Set the price as needed
+            };
+            Borrow.BorrowBook(borrow);
+
+            //create a reciept or confirmation message
+            
+            return RedirectToAction("BorrowBookRecieptView");
+        }
+
+
+        #endregion
     }
 }
