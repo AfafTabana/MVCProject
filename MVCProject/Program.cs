@@ -22,6 +22,7 @@ namespace MVCProject
             builder.Services.AddAutoMapper(typeof(LibrarianMapper),typeof(BookMapper));
             builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<ICategoriesRepository, CategoeriesRepository>();
 
 
             var app = builder.Build();

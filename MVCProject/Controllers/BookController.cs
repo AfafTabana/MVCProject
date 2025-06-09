@@ -52,8 +52,10 @@ namespace MVCProject.Controllers
                 return RedirectToAction("DisplayAllBooksForUser");
 
             }
-
-
+            // Ahmed Ashraf 
+            // put this line to take the list of categeory to view model
+            //  if the model state isn't valid and return the data in view model  with  categeoruies
+            Book.Cat_list = catRepository.GetAllCategories();
             return View("AddBook" , Book);
 
         }
@@ -71,6 +73,11 @@ namespace MVCProject.Controllers
         public IActionResult DisplayBookById(int id) { 
         
           Books _book = bookRepository.GetBookById(id);
+            //Ahmed Ashraf 
+            // check if the book found or not 
+            if(_book == null)
+                return NotFound();
+            
           DisplayBookUserViewModel BookDetails = mapper.Map<DisplayBookUserViewModel>(_book);
           return View("DisplayBookDetails" , BookDetails);
 
