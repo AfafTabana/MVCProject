@@ -12,7 +12,7 @@ namespace MVCProject.Controllers
         ISalesRepository salesRepository;
         IBookRepository bookRepository;
         IMapper mapper;
-        public BookController(IBookRepository bookRepository , IMapper mapper, ICategoriesRepository catRepository)
+       // public BookController(IBookRepository bookRepository , IMapper mapper, ICategoriesRepository catRepository)
 
         IBorrowRepository Borrow;
 
