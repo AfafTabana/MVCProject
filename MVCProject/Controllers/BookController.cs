@@ -134,7 +134,7 @@ namespace MVCProject.Controllers
                 ModelState.AddModelError("", "Invalid Quantity");
                 return View(vm);
             }
-            int userId = 1;
+            int userId = 4;
             book.Buy_quantity -= vm.QuantityToBuy;
             bookRepository.UpdateBook(book);
             salesRepository.AddBook(new Models.Sales
