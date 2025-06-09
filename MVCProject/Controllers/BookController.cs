@@ -11,10 +11,14 @@ namespace MVCProject.Controllers
         ISalesRepository salesRepository;
         IBookRepository bookRepository;
         IMapper mapper;
-        public BookController(IBookRepository bookRepository, ISalesRepository salesRepository, IMapper mapper)
+
+        IBorrowRepository Borrow;
+
+        public BookController(IBookRepository bookRepository, IBorrowRepository borrow, ISalesRepository salesRepository, IMapper mapper)
         {
             this.bookRepository = bookRepository;
             this.salesRepository = salesRepository;
+            Borrow = borrow;
             this.mapper = mapper;
         }
 
@@ -155,5 +159,55 @@ namespace MVCProject.Controllers
             return View();
         }
 
+         #region Borrowing Books
+
+        public IActionResult ConfirmBorrowing()
+        {
+            //if book borrow quantity is 0, then the book cannot be borrowed and does not show the borrow button
+
+
+            //take book data from the book card  and in the DisplayBookDetails view 
+            //and pass it to the BorrowBookView
+            //make form wuth pre-filled book details
+            //borrowbook action will handle the form submission and retrieve the user input 
+
+
+            // Assuming you have a way to get the list of books and users for the dropdowns
+            //it is linked to a button in the DisplayBookDetails view
+            //triggered when the user clicks on "Borrow Book"
+
+            return RedirectToAction("DisplayAllBooksForUser");
+
+        }
+
+
+        public IActionResult BorrowBook(int id) {
+            // This action will handle the form submission from the BorrowBookView
+
+            //int bookId = Convert.ToInt32(Request.Form["bookId"]);//getting bookId from form data
+            //int userId = Convert.ToInt32(Request.Form["userId"]);//getting userId from form data
+            int userId = 1;//getting userId from form data
+            int borrowPrice = 100 ; // Assuming a price of 0 for borrowing, you can set it as needed
+            //int borrowPrice = bookRepository.GetBookPriceById(id) ; // Assuming a price of 0 for borrowing, you can set it as needed
+            DateTime startDate = DateTime.Now; // Assuming the borrowing starts now[should get that from form ]
+            DateTime dueDate = startDate.AddDays(14); // Assuming a 2-week borrowing period
+            
+            Borrow borrow = new Borrow
+            {
+                Book_ID = id,
+                User_ID = userId,
+                StartDate = startDate,
+                DueDate = dueDate,
+                Price = borrowPrice // Set the price as needed
+            };
+            Borrow.BorrowBook(borrow);
+
+            //create a reciept or confirmation message
+            
+            return RedirectToAction("DisplayAllBooksForUser");
+        }
+
+
+        #endregion
     }
 }
