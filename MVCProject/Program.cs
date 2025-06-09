@@ -9,6 +9,7 @@ namespace MVCProject
 {
     public class Program
     {
+       
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -17,10 +18,12 @@ namespace MVCProject
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<LibraryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("db")));
+            //,sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()));
 
             builder.Services.AddAutoMapper(typeof(LibrarianMapper),typeof(BookMapper));
             builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<ISalesRepository,SalesRepository>();
             builder.Services.AddScoped<IUserRepository, UsersRepository>();
             builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
 
@@ -47,6 +50,11 @@ namespace MVCProject
                 .WithStaticAssets();
 
             app.Run();
+        }
+
+        private static void SalesRepository()
+        {
+            throw new NotImplementedException();
         }
     }
 }
