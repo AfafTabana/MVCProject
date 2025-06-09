@@ -24,6 +24,8 @@ namespace MVCProject
             builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<ISalesRepository,SalesRepository>();
+            builder.Services.AddScoped<IUserRepository, UsersRepository>();
+            builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
 
 
             var app = builder.Build();
