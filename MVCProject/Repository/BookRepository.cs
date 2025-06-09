@@ -37,6 +37,17 @@ namespace MVCProject.Repository
             return _context.Books.Find(id);
         }
 
+        public int GetBookPriceById(int id)
+        {
+            int price = 
+               Convert.ToInt32(_context.Books
+                .Where(b => b.ID == id)
+                .Select(b => b.Price)
+                .FirstOrDefault());
+            return price;
+
+        }
+
         public List<Books> SearchBookByTitle(string title)
         {
             return _context.Books
