@@ -1,4 +1,6 @@
-﻿namespace MVCProject.ViewModel.Book
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MVCProject.ViewModel.Book
 {
     public class DisplayBookForLibrarianViewModel
     {
@@ -22,5 +24,6 @@
         public string Author_Name { get; set; }
 
         public int Borrow_Price { set; get; }
+
     }
 }

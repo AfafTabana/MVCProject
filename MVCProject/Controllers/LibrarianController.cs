@@ -77,5 +77,18 @@ namespace MVCProject.Controllers
             }
             return View("AddLibrarianViewr", librarianViewModel);
         }
+
+
+
+
+
+        #region manage borrowed books
+
+        //preview borrowed books using tracker function that manages borrowed books in the borrow table using 
+        //functions in the BorrowRepository
+        
+
+
+        #endregion
     }
 }

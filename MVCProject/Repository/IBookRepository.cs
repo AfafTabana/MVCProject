@@ -16,5 +16,7 @@ namespace MVCProject.Repository
         public void UpdateBook(Books book);
 
         public void DeleteBook(int id);
+
+        public int GetBookPriceById(int id);
     }
 }
