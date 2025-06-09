@@ -135,18 +135,24 @@ namespace MVCProject.Controllers
                 return View(vm);
             }
             int userId = 1;
+            double totalPrice = vm.QuantityToBuy * book.Price;
             book.Buy_quantity -= vm.QuantityToBuy;
             bookRepository.UpdateBook(book);
             salesRepository.AddBook(new Models.Sales
             {
                 Book_ID = book.ID,
-                Quantity = book.Buy_quantity,
+                Quantity = vm.QuantityToBuy,
                 User_ID = userId,
-                Date = DateTime.Now
-
+                Date = DateTime.Now,
+                 TotalPrice = totalPrice
 
             });
-            return RedirectToAction("DisplayAllBooksForUser");
+            return RedirectToAction("PurchaseConfirmation", new {totalPrice});
+        }
+        public IActionResult PurchaseConfirmation (double totalPrice)
+        {
+            ViewBag.TotalPrice = totalPrice;
+            return View();
         }
 
     }
