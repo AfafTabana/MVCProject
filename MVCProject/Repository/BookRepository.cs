@@ -1,10 +1,12 @@
-﻿using MVCProject.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MVCProject.Models;
 
 namespace MVCProject.Repository
 {
     public class BookRepository : IBookRepository
     {
         private readonly LibraryContext _context;
+        
 
         public BookRepository(LibraryContext context)
         {
@@ -29,12 +31,19 @@ namespace MVCProject.Repository
 
         public IEnumerable<Books> GetAllBooks()
         {
-            return _context.Books.ToList();
+            //return _context.Books.ToList();
+            //Ahmed Ashraf  ubdate to return the category name whith the All details 
+            return _context.Books.Include(b => b.categeory)
+                .ToList();
         }
 
         public Books GetBookById(int id)
         {
-            return _context.Books.Find(id);
+            //return _context.Books.Find(id);
+            //Ahmed Ashraf  ubdate to return the categoty name whith the book details 
+            // so he get the book details including category
+            return _context.Books.Include(b => b.categeory).FirstOrDefault(b => b.ID == id);
+
         }
 
         public int GetBookPriceById(int id)

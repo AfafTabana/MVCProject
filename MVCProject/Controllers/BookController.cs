@@ -8,9 +8,11 @@ namespace MVCProject.Controllers
 {
     public class BookController : Controller
     {
+        ICategoriesRepository catRepository;
         ISalesRepository salesRepository;
         IBookRepository bookRepository;
         IMapper mapper;
+       // public BookController(IBookRepository bookRepository , IMapper mapper, ICategoriesRepository catRepository)
 
         IBorrowRepository Borrow;
 
@@ -20,6 +22,7 @@ namespace MVCProject.Controllers
             this.salesRepository = salesRepository;
             Borrow = borrow;
             this.mapper = mapper;
+            this.catRepository = catRepository;
         }
 
         public IActionResult DisplayAllBooksForUser()
@@ -36,11 +39,14 @@ namespace MVCProject.Controllers
             return View("DisplayAllBooksForLibrarian", Books);
         }
 
-        public IActionResult AddingBook()
-        {
+        public IActionResult AddingBook() {
 
-            return View("AddBook");
-
+            AddBookViewModel Bookfromreq = new()
+            {
+                Cat_list = catRepository.GetAllCategories()
+            };
+            return View("AddBook",Bookfromreq);
+        
         }
 
         [HttpPost]
@@ -54,8 +60,11 @@ namespace MVCProject.Controllers
                 return RedirectToAction("DisplayAllBooksForUser");
 
             }
-
-            return View("AddBook", Book);
+            // Ahmed Ashraf 
+            // put this line to take the list of categeory to view model
+            //  if the model state isn't valid and return the data in view model  with  categeoruies
+            Book.Cat_list = catRepository.GetAllCategories();
+            return View("AddBook" , Book);
 
         }
 
