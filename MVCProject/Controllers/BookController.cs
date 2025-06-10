@@ -138,7 +138,7 @@ namespace MVCProject.Controllers
                 ModelState.AddModelError("", "Invalid Quantity");
                 return View(vm);
             }
-            int userId = 1;
+            int userId = 4;
             double totalPrice = vm.QuantityToBuy * book.Price;
             book.Buy_quantity -= vm.QuantityToBuy;
             bookRepository.UpdateBook(book);
@@ -186,7 +186,7 @@ namespace MVCProject.Controllers
 
             //int bookId = Convert.ToInt32(Request.Form["bookId"]);//getting bookId from form data
             //int userId = Convert.ToInt32(Request.Form["userId"]);//getting userId from form data
-            int userId = 1;//getting userId from form data
+            int userId = 4;//getting userId from form data
             int borrowPrice = 100 ; // Assuming a price of 0 for borrowing, you can set it as needed
             //int borrowPrice = bookRepository.GetBookPriceById(id) ; // Assuming a price of 0 for borrowing, you can set it as needed
             DateTime startDate = DateTime.Now; // Assuming the borrowing starts now[should get that from form ]
