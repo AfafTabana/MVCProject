@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MVCProject.Models;
 using MVCProject.ViewModel.Auth;
+using System.Security.Claims;
 
 namespace MVCProject.Controllers
 {
@@ -54,6 +55,7 @@ namespace MVCProject.Controllers
         //login
         public IActionResult Login()
         {
+            
             return View("LoginView");
         }
         [HttpPost]
@@ -63,6 +65,7 @@ namespace MVCProject.Controllers
             if (ModelState.IsValid)
             {
                 var result = await signmanager.PasswordSignInAsync(lgModel.UserName, lgModel.Password, lgModel.RememberMe, lockoutOnFailure: false);
+                 
                 if (result.Succeeded)
                 {
                     return RedirectToAction("DisplayAllBooksForUser", "Book");

@@ -4,9 +4,11 @@
     <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
         <div class="flex justify-between items-center mb-6">
             <h3 class="text-2xl font-bold text-gray-800">Sign In</h3>
+            <a href="/Home/index">
             <button id="close-login-modal" class="text-gray-500 hover:text-gray-700" type="button">
                 <i class="fas fa-times"></i>
             </button>
+            </a>
         </div>
 
         <form asp-action="Login" asp-controller="Account" method="post" class="space-y-4">
