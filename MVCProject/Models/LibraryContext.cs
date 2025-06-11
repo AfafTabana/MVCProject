@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace MVCProject.Models
 {
-    public class LibraryContext :DbContext
+    public class LibraryContext :IdentityDbContext<ApplicationUser>
     {
         public LibraryContext() { 
         

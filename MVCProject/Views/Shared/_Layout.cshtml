@@ -87,15 +87,21 @@
 
                 <!-- Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-4">
+                    <a href="/Account/Login">
                     <button id="login-btn" class="nav-item px-4 py-2 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors duration-300">
                         <i class="fas fa-sign-in-alt mr-2"></i> Sign In
                     </button>
-                    <button id="register-btn" class="nav-item px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
-                        <i class="fas fa-user-plus mr-2"></i> Sign Up
-                    </button>
-                    <button id="logout-btn" class="hidden nav-item px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-300">
+                    </a>
+                   <a href="/Account/Register">
+                        <button id="register-btn" class="nav-item px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
+                            <i class="fas fa-user-plus mr-2"></i> Sign Up
+                        </button>
+                   </a>
+                    <a href="/Account/Logout">
+                    <button id="logout-btn" class=" nav-item px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-300">
                         <i class="fas fa-sign-out-alt mr-2"></i> Logout
                     </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -188,254 +194,19 @@
         </div>
     </footer>
 
-    <!-- Sign In Modal -->
-    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Sign In</h3>
-                <button id="close-login-modal" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <form class="space-y-4">
-                <div>
-                    <label for="login-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="login-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div>
-                    <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="login-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
-                    </div>
-                    <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
-                </div>
-
-                <div>
-                    <button type="button" id="login-submit" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-                        Sign In
-                    </button>
-                </div>
-
-                <div class="text-center text-sm text-gray-600">
-                    Don't have an account? <button id="switch-to-register" class="text-blue-600 hover:underline">Sign up</button>
-                </div>
-
-                <div class="relative my-6">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-300"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-                        <i class="fab fa-google mr-2"></i> Google
-                    </a>
-                    <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-                        <i class="fab fa-facebook-f mr-2"></i> Facebook
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Sign Up Modal -->
-    <div id="register-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Create Account</h3>
-                <button id="close-register-modal" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <form class="space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="register-first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                        <input type="text" id="register-first-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="register-last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                        <input type="text" id="register-last-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                </div>
-
-                <div>
-                    <label for="register-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="register-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div>
-                    <label for="register-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="register-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div>
-                    <label for="register-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-                    <input type="password" id="register-confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div class="flex items-center">
-                    <input id="terms" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                    <label for="terms" class="ml-2 block text-sm text-gray-700">
-                        I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
-                    </label>
-                </div>
-
-                <div>
-                    <button type="button" id="register-submit" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300">
-                        Create Account
-                    </button>
-                </div>
-
-                <div class="text-center text-sm text-gray-600">
-                    Already have an account? <button id="switch-to-login" class="text-blue-600 hover:underline">Sign in</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
+    
+  
+   
+   
     <environment include="Development">
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-    <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Modal toggles
-        const loginModal = document.getElementById('login-modal');
-        const registerModal = document.getElementById('register-modal');
-        const loginButtons = [document.getElementById('login-btn'), document.getElementById('mobile-login-btn')];
-        const registerButtons = [document.getElementById('register-btn'), document.getElementById('mobile-register-btn')];
-        const closeLoginModal = document.getElementById('close-login-modal');
-        const closeRegisterModal = document.getElementById('close-register-modal');
-        const switchToRegister = document.getElementById('switch-to-register');
-        const switchToLogin = document.getElementById('switch-to-login');
-        const logoutButtons = [document.getElementById('logout-btn'), document.getElementById('mobile-logout-btn')];
-
-        // Show login modal
-        loginButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                loginModal.classList.remove('hidden');
-            });
-        });
-
-        // Show register modal
-        registerButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                registerModal.classList.remove('hidden');
-            });
-        });
-
-        // Close modals
-        closeLoginModal.addEventListener('click', () => {
-            loginModal.classList.add('hidden');
-        });
-
-        closeRegisterModal.addEventListener('click', () => {
-            registerModal.classList.add('hidden');
-        });
-
-        // Switch between login and register
-        switchToRegister.addEventListener('click', () => {
-            loginModal.classList.add('hidden');
-            registerModal.classList.remove('hidden');
-        });
-
-        switchToLogin.addEventListener('click', () => {
-            registerModal.classList.add('hidden');
-            loginModal.classList.remove('hidden');
-        });
-
-        // Simulate login
-        document.getElementById('login-submit').addEventListener('click', () => {
-            // In a real app, you would validate credentials here
-            // For demo, we'll just toggle the buttons
-            loginButtons.forEach(btn => { btn.classList.add('hidden'); });
-            registerButtons.forEach(btn => { btn.classList.add('hidden'); });
-            logoutButtons.forEach(btn => { btn.classList.remove('hidden'); });
-            loginModal.classList.add('hidden');
-        });
-
-        // Simulate register
-        document.getElementById('register-submit').addEventListener('click', () => {
-            // In a real app, you would create an account here
-            // For demo, we'll just toggle the buttons
-            loginButtons.forEach(btn => { btn.classList.add('hidden'); });
-            registerButtons.forEach(btn => { btn.classList.add('hidden'); });
-            logoutButtons.forEach(btn => { btn.classList.remove('hidden'); });
-            registerModal.classList.add('hidden');
-        });
-
-        // Simulate logout
-        logoutButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                loginButtons.forEach(btn => { btn.classList.remove('hidden'); });
-                registerButtons.forEach(btn => { btn.classList.remove('hidden'); });
-                logoutButtons.forEach(btn => { btn.classList.add('hidden'); });
-            });
-        });
-
-        // Nav link active state
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav a, #mobile-menu a');
-
-        function updateActiveLink() {
-            let index = sections.length;
-
-            while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
-
-            navLinks.forEach(link => {
-                link.classList.remove('active-nav');
-                if(link.getAttribute('href') === `#${sections[index].id}`) {
-                    link.classList.add('active-nav');
-                }
-            });
-        }
-
-        updateActiveLink();
-        window.addEventListener('scroll', updateActiveLink);
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
-                    if(!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
-            });
-        });
-    </script>
+   <script src="~/lib/jquery/dist/jquery.min.js"></script>
+   <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+   
 </body>
 </html>

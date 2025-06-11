@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MVCProject.Mapper;
@@ -15,11 +16,24 @@ namespace MVCProject
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<LibraryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("db")));
-            //,sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()));
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+                options =>
+                {
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                   
+                }
+                )
+                .AddEntityFrameworkStores<LibraryContext>();
+               
             builder.Services.AddAutoMapper(typeof(LibrarianMapper),typeof(BookMapper));
             builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
@@ -53,9 +67,6 @@ namespace MVCProject
             app.Run();
         }
 
-        private static void SalesRepository()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVCProject.Models;
 using MVCProject.Repository;
@@ -25,6 +26,7 @@ namespace MVCProject.Controllers
             this.catRepository = catRepository;
         }
 
+        
         public IActionResult DisplayAllBooksForUser()
         {
             List<Books> AllBooks = bookRepository.GetAllBooks().ToList();
