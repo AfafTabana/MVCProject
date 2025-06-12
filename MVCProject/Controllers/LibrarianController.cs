@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVCProject.Models;
 using MVCProject.Repository;
@@ -10,10 +11,13 @@ namespace MVCProject.Controllers
     {
         ILibrarianRepository librarianRepository;
         IMapper mapper;
-        public LibrarianController(ILibrarianRepository librarianRepository, IMapper mapper)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public LibrarianController(ILibrarianRepository librarianRepository, IMapper mapper,UserManager<ApplicationUser>userManager)
         {
             this.librarianRepository = librarianRepository;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
         public IActionResult GetAllLibrarians()
         {
@@ -55,9 +59,17 @@ namespace MVCProject.Controllers
             return View("EditLibrarianView", librarianViewModel);
         }
 
-        public IActionResult DeleteLibrarian(int id)
+        public async Task< IActionResult> DeleteLibrarian(int id)
         {
+           
+            var applicationUserId = librarianRepository.GetAllLibrarians().FirstOrDefault(l => l.Id == id)?.ApplicationUserId;
+            var applicationUser = await userManager.FindByIdAsync(applicationUserId);
             librarianRepository.DeleteLibrarian(id);
+            if (applicationUser != null)
+            {
+               
+                 await userManager.DeleteAsync(applicationUser);
+            }
             return RedirectToAction("GetAllLibrarians");
         }
 
@@ -65,18 +77,18 @@ namespace MVCProject.Controllers
         {
             return View("AddLibrarianView");
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AddLibrarian(AddLibrarianViewModel librarianViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                Librarians librarian = mapper.Map<Librarians>(librarianViewModel);
-                librarianRepository.AddLibrarian(librarian);
-                return RedirectToAction("GetAllLibrarians");
-            }
-            return View("AddLibrarianViewr", librarianViewModel);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult AddLibrarian(AddLibrarianViewModel librarianViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Librarians librarian = mapper.Map<Librarians>(librarianViewModel);
+        //        librarianRepository.AddLibrarian(librarian);
+        //        return RedirectToAction("GetAllLibrarians");
+        //    }
+        //    return View("AddLibrarianViewr", librarianViewModel);
+        //}
 
 
 
@@ -86,7 +98,7 @@ namespace MVCProject.Controllers
 
         //preview borrowed books using tracker function that manages borrowed books in the borrow table using 
         //functions in the BorrowRepository
-        
+
 
 
         #endregion

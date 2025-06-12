@@ -10,6 +10,14 @@ namespace MVCProject.Repository
         {
             Context = _context;
         }
+
+        public Users getUserByApplicationUserId(string applicationUserId)
+        {
+            var user = Context.Users.FirstOrDefault(u => u.ApplicationUserId == applicationUserId);
+                return user;
+        }
+
+
         public Users GetUserById(int id)
         {
             var user =  Context.Users.FirstOrDefault(u => u.Id == id);
@@ -28,44 +36,29 @@ namespace MVCProject.Repository
         }
         public void AddUser(Users user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user), "User");
-            }
-            else
-            {
+          
                 Context.Users.Add(user);
                 Context.SaveChanges();
-            }
+            
         }
 
         public void UpdateUser(Users user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user), "User");
-            }
-            else
-            {
+           
                 Context.Users.Update(user);
                 Context.SaveChanges();
-            }
+            
         }
         public void DeleteUser(int id)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("Invalid user ID", nameof(id));
-            }
-            else
-            {
+         
                 var user = Context.Users.FirstOrDefault(u=>u.Id == id);
                 if (user != null)
                 {
                     Context.Users.Remove(user);
                     Context.SaveChanges();
                 }
-            }
+            
         }
     
     }

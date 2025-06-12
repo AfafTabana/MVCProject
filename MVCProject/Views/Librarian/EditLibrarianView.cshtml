@@ -28,7 +28,9 @@
             <div class="bg-white rounded-xl shadow-md overflow-hidden animate-fade-in">
                 <div class="p-6 sm:p-8">
                     <form asp-action="UpdateLibrarian" method="post" class="space-y-6">
+
                         <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ApplicationUserId" />
 
                         <!-- Name Field -->
                         <div class="form-input border rounded-lg px-4 py-3 transition-all duration-200">

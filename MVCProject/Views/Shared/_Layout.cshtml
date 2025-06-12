@@ -17,14 +17,14 @@
     </environment>
     <style>
         /* Custom animation for navbar items */
-        
+
         keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
         }
-    
+
         .nav-item {
-            animation: fadeIn 0.3s ease-out forwards;
+        animation: fadeIn 0.3s ease-out forwards;
         }
 
         /* Delay each nav item animation */
@@ -39,20 +39,20 @@
 
         /* Section transition */
         .section {
-            min-height: 100vh;
-            padding-top: 80px;
+        min-height: 100vh;
+        padding-top: 80px;
         }
 
         /* Active nav item indicator */
         .active-nav {
-            position: relative;
+        position: relative;
         }
 
-      
 
-          keyframes underline {
-            from { width: 0; }
-            to { width: 100%; }
+
+        keyframes underline {
+        from { width: 0; }
+        to { width: 100%; }
         }
     </style>
 </head>
@@ -66,8 +66,8 @@
                     <i class="fas fa-book-open text-blue-500 text-2xl mr-2"></i>
                     <span class="text-xl font-bold text-gray-800">LibraLink</span>
                 </div>
-               
-                   
+
+
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
                     <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-900 focus:outline-none">
@@ -78,30 +78,58 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
                     <a href="/home/index" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300 active-nav">Home</a>
-                    <a href="/librarian/getalllibrarians" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">Librarians</a>
-                    <a href="/user/getallusers" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">Users</a>
-                    <a href="/book/DisplayAllBooksForLibrarian" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">Books</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="/librarian/getalllibrarians" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">Librarians</a>
+                    }
+                  
+                    @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                    {
+                        <a href="/user/getallusers" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">Users</a>
+                    }
+                   
+                    @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                    {
+                        <a href="/book/DisplayAllBooksForLibrarian" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">Books</a>
+                    }
+
+                    @if (User.IsInRole("User"))
+                    {
+                        <a href="/book/DisplayAllBooksForUser" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">Books</a>
+                    }
+                  
                     <a href="/home/index/#contact" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">Contact Us</a>
                     <a href="/home/index/#about" class="nav-item text-gray-700 hover:text-blue-600 transition-colors duration-300">About</a>
                 </nav>
 
                 <!-- Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <a href="/Account/Login">
-                    <button id="login-btn" class="nav-item px-4 py-2 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors duration-300">
-                        <i class="fas fa-sign-in-alt mr-2"></i> Sign In
-                    </button>
-                    </a>
-                   <a href="/Account/Register">
-                        <button id="register-btn" class="nav-item px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
-                            <i class="fas fa-user-plus mr-2"></i> Sign Up
-                        </button>
-                   </a>
-                    <a href="/Account/Logout">
-                    <button id="logout-btn" class=" nav-item px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-300">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                    </button>
-                    </a>
+
+                  
+                    @if (User.Identity.IsAuthenticated){
+                        <a href="/Account/Logout">
+                            <button id="logout-btn" class=" nav-item px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-300">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </button>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Account/Login">
+                            <button id="login-btn" class="nav-item px-4 py-2 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors duration-300">
+                                <i class="fas fa-sign-in-alt mr-2"></i> Sign In
+                            </button>
+                        </a>
+
+                        <a href="/Account/Register">
+                            <button id="register-btn" class="nav-item px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
+                                <i class="fas fa-user-plus mr-2"></i> Sign Up
+                            </button>
+                        </a>
+
+                    }
+
+
                 </div>
             </div>
         </div>

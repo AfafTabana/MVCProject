@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MVCProject.Models;
+using MVCProject.Repository;
 using MVCProject.ViewModel.Auth;
 using System.Security.Claims;
 
@@ -10,10 +11,18 @@ namespace MVCProject.Controllers
     {
         private readonly UserManager<ApplicationUser> usermanager;
         private readonly SignInManager<ApplicationUser> signmanager;
+        private readonly ILibrarianRepository librarianRepository;
+        private readonly IUserRepository userRepository;
 
-        public AccountController(UserManager<ApplicationUser> usermanager,SignInManager<ApplicationUser>signmanager) {
+        public AccountController(UserManager<ApplicationUser> usermanager,
+            SignInManager<ApplicationUser>signmanager,
+            ILibrarianRepository librarianRepository,
+            IUserRepository userRepository
+            ) {
             this.usermanager = usermanager;
             this.signmanager = signmanager;
+            this.librarianRepository = librarianRepository;
+            this.userRepository = userRepository;
         }
         //register
         public IActionResult Register()
@@ -36,10 +45,43 @@ namespace MVCProject.Controllers
                 var result =await usermanager.CreateAsync(user, rgModel.Password);
 
                 if (result.Succeeded) {
+                    //add role user or librarian
+                    if (rgModel.IsLibrarian)
+                    {
+                        await usermanager.AddToRoleAsync(user, "Librarian");
+                        // add to librarians table
+                        
+                        Librarians librarian = new Librarians()
+                        {
+                            Name = rgModel.UserName,
+                            ApplicationUserId = user.Id,
+                            Salary = 0, 
+                            HireDate = DateTime.Now, 
+                            National_Number = "00000000000000" 
+                        };
+                        librarianRepository.AddLibrarian(librarian);
+                    }
+                    else
+                    {
+                        await usermanager.AddToRoleAsync(user, "User");
+                        // add to users table
+                        Users newUser = new Users()
+                        {
+                            Name = rgModel.UserName,
+                             Balance = 5000, 
+                            ApplicationUserId = user.Id,
+                            National_Number = "00000000000000", 
+                            City = "cairo",
+                            street = "street 1",
+                        };
+                        userRepository.AddUser(newUser);
+                    }
+
+
                     //make cookie
                     await signmanager.SignInAsync(user, isPersistent: false);
                     // place to go for 
-                    return RedirectToAction("DisplayAllBooksForUser", "Book");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -68,7 +110,7 @@ namespace MVCProject.Controllers
                  
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("DisplayAllBooksForUser", "Book");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

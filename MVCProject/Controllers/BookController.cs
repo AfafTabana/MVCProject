@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MVCProject.Models;
 using MVCProject.Repository;
 using MVCProject.ViewModel.Book;
+using System.Security.Claims;
 
 namespace MVCProject.Controllers
 {
@@ -13,16 +14,24 @@ namespace MVCProject.Controllers
         ISalesRepository salesRepository;
         IBookRepository bookRepository;
         IMapper mapper;
-       // public BookController(IBookRepository bookRepository , IMapper mapper, ICategoriesRepository catRepository)
+        private readonly IUserRepository userRepository;
+
+        // public BookController(IBookRepository bookRepository , IMapper mapper, ICategoriesRepository catRepository)
 
         IBorrowRepository Borrow;
 
-        public BookController(IBookRepository bookRepository, IBorrowRepository borrow, ISalesRepository salesRepository, IMapper mapper)
+        public BookController(IBookRepository bookRepository,
+            IBorrowRepository borrow,
+            ISalesRepository salesRepository,
+            IMapper mapper,
+            IUserRepository userRepository
+            )
         {
             this.bookRepository = bookRepository;
             this.salesRepository = salesRepository;
             Borrow = borrow;
             this.mapper = mapper;
+            this.userRepository = userRepository;
             this.catRepository = catRepository;
         }
 
@@ -149,7 +158,17 @@ namespace MVCProject.Controllers
                 ModelState.AddModelError("", "Invalid Quantity");
                 return View(vm);
             }
-            int userId = 4;
+          
+           
+            
+            string nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int userId = 0;
+           
+                Users user = userRepository.getUserByApplicationUserId(nameIdentifier);
+           
+                    userId = user.Id;
+                
+            
             double totalPrice = vm.QuantityToBuy * book.Price;
             book.Buy_quantity -= vm.QuantityToBuy;
             bookRepository.UpdateBook(book);
@@ -197,7 +216,12 @@ namespace MVCProject.Controllers
 
             //int bookId = Convert.ToInt32(Request.Form["bookId"]);//getting bookId from form data
             //int userId = Convert.ToInt32(Request.Form["userId"]);//getting userId from form data
-            int userId = 4;//getting userId from form data
+            string nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int userId = 0;
+
+            Users user = userRepository.getUserByApplicationUserId(nameIdentifier);
+
+            userId = user.Id;
             int borrowPrice = 100 ; // Assuming a price of 0 for borrowing, you can set it as needed
             //int borrowPrice = bookRepository.GetBookPriceById(id) ; // Assuming a price of 0 for borrowing, you can set it as needed
             DateTime startDate = DateTime.Now; // Assuming the borrowing starts now[should get that from form ]

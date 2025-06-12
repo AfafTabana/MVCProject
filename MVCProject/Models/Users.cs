@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCProject.Models
 {
@@ -21,5 +22,9 @@ namespace MVCProject.Models
         public List<Borrow> Borrows { get; set; }
 
         public List<Sales> Sales { get; set; }
+
+        [ForeignKey("Applicationuser")]
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser Applicationuser { get; set; }
     }
 }
