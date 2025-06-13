@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MVCProject.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCProject.ViewModel.Book
@@ -32,5 +33,6 @@ namespace MVCProject.ViewModel.Book
         public int Borrow_Price { set; get; }
 
         public int Cat_Id { get; set; }
+        public List<Categeories>? Cat_list { get; set; }
     }
 }

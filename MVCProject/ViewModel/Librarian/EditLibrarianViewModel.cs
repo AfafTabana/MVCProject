@@ -31,5 +31,6 @@ namespace MVCProject.ViewModel.Librarian
                 }
             }
         }
+        public string ApplicationUserId { get; set; }
     }
 }
