@@ -7,29 +7,29 @@ namespace MVCProject.ViewModel.Book
     public class AddBookViewModel
     {
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "Title Max Length is 50")]
         public string Title { set; get; }
 
-        [MaxLength(150)]
+        [MaxLength(150 , ErrorMessage ="Description Max Length is 150")]
         public string Description { set; get; }
 
-        [RegularExpression(@"^.*\.(png|jpg)$")]
+        [RegularExpression(@"^.*\.(png|jpg)$" , ErrorMessage ="Image must end with png or jpg extension")]
         public string ImageUrl { set; get; }
 
-        [Range(500 , 2000)]
+        [Range(500 , 2000 , ErrorMessage = "Price Must Be between 500 and 2000")]
         public double Price { set; get; }
 
         public int Borrow_quantity { get; set; }
 
         public int Buy_quantity { get; set; }
 
-        [MaxLength(25)]
+        [MaxLength(25 , ErrorMessage ="PublisherName Max length is 25")]
         public string Publisher_Name { get; set; }
 
-        [MaxLength(25)]
+        [MaxLength(25 ,ErrorMessage = "AuthorName Max length is 25")]
         public string Author_Name { get; set; }
 
-        [Range(100, 1000)]
+        [Range(100, 1000, ErrorMessage = "Price Must Be between 100 and 1000")]
         public int Borrow_Price { set; get; }
 
         public int Cat_Id { get; set; }

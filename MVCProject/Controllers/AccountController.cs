@@ -57,7 +57,7 @@ namespace MVCProject.Controllers
                             ApplicationUserId = user.Id,
                             Salary = 0, 
                             HireDate = DateTime.Now, 
-                            National_Number = "00000000000000" 
+                            National_Number = rgModel.National_Number
                         };
                         librarianRepository.AddLibrarian(librarian);
                     }
@@ -70,7 +70,7 @@ namespace MVCProject.Controllers
                             Name = rgModel.UserName,
                              Balance = 5000, 
                             ApplicationUserId = user.Id,
-                            National_Number = "00000000000000", 
+                            National_Number = rgModel.National_Number, 
                             City = "cairo",
                             street = "street 1",
                         };
@@ -124,6 +124,18 @@ namespace MVCProject.Controllers
         {
             await signmanager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        //for client-side validation 
+        public IActionResult checkusername(string UserName) { 
+            if (UserName.Length > 4)
+            {
+                return Json(true);
+
+            }else
+            {
+                return Json(false);
+            }
         }
 
     }

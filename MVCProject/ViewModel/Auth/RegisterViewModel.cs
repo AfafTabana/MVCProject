@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MVCProject.Custom_Validation;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MVCProject.ViewModel.Auth
 {
     public class RegisterViewModel
     {
-        [MinLength(4, ErrorMessage = "User name must be at least 4 characters long.")]
+        [Remote("checkusername" , "Account" , ErrorMessage = "User name must be at least 4 characters long.")]
+       // [MinLength(4, ErrorMessage = "User name must be at least 4 characters long.")]
         [Required(ErrorMessage = "User name is required.")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "Email is required.")]
@@ -18,6 +21,9 @@ namespace MVCProject.ViewModel.Auth
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [MaxLength(14, ErrorMessage = "Maximum Number is 14 Digits")]
+        [Unique]
+        public string National_Number { get; set; }
 
         public bool IsLibrarian { get; set; } 
     }

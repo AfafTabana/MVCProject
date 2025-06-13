@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using MVCProject.Custom_Validation;
 namespace MVCProject.ViewModel.Librarian
 {
     public class EditLibrarianViewModel
     {
         public int Id { get; set; }
-        [MaxLength(25)]
+        [MaxLength(25 , ErrorMessage ="Name Max lenght is 25")]
         public string Name { get; set; }
 
-        [Range(1000 , 5000)]
+        [Range(1000 , 5000 , ErrorMessage ="Salary Must be between 1000 and 5000")]
         public double Salary { get; set; }
         [MaxLength(14, ErrorMessage = "Maximum Number is 14 Digits")]
+        [Unique]
         public string National_Number { get; set; }
         private DateTime _hireDate;
         public string HireDate

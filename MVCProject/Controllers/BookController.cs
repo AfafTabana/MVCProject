@@ -14,6 +14,7 @@ namespace MVCProject.Controllers
         ISalesRepository salesRepository;
         IBookRepository bookRepository;
         IMapper mapper;
+       
         private readonly IUserRepository userRepository;
 
         // public BookController(IBookRepository bookRepository , IMapper mapper, ICategoriesRepository catRepository)
@@ -24,7 +25,8 @@ namespace MVCProject.Controllers
             IBorrowRepository borrow,
             ISalesRepository salesRepository,
             IMapper mapper,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            ICategoriesRepository catRepository
             )
         {
             this.bookRepository = bookRepository;
@@ -51,12 +53,12 @@ namespace MVCProject.Controllers
         }
 
         public IActionResult AddingBook() {
-
-            AddBookViewModel Bookfromreq = new()
+            
+            AddBookViewModel Bookfromreq = new AddBookViewModel()
             {
                 Cat_list = catRepository.GetAllCategories()
             };
-            return View("AddBook",Bookfromreq);
+            return View("AddBook" , Bookfromreq);
         
         }
 
@@ -64,7 +66,7 @@ namespace MVCProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddBook(AddBookViewModel Book)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid==true)
             {
                 Books _Book = mapper.Map<Books>(Book);
                 bookRepository.AddBook(_Book);
@@ -126,7 +128,7 @@ namespace MVCProject.Controllers
         public IActionResult UpdateBook(EditBookViewModel Book)
         {
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == true)
             {
                 Books _Book = mapper.Map<Books>(Book);
                 bookRepository.UpdateBook(_Book);
