@@ -469,13 +469,13 @@ namespace MVCProject.Migrations
 
             modelBuilder.Entity("MVCProject.Models.Librarians", b =>
                 {
-                    b.HasOne("MVCProject.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("MVCProject.Models.ApplicationUser", "Applicationuser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
+                    b.Navigation("Applicationuser");
                 });
 
             modelBuilder.Entity("MVCProject.Models.Sales", b =>
@@ -499,13 +499,13 @@ namespace MVCProject.Migrations
 
             modelBuilder.Entity("MVCProject.Models.Users", b =>
                 {
-                    b.HasOne("MVCProject.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("MVCProject.Models.ApplicationUser", "Applicationuser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
+                    b.Navigation("Applicationuser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
