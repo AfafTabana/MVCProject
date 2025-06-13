@@ -5,7 +5,9 @@ namespace MVCProject.ViewModel.Librarian
     public class AddLibrarianViewModel
     {
 
+        [MaxLength(25)]
         public string Name { get; set; }
+        [Range(1000, 5000)]
         public double Salary { get; set; }
         private DateTime _hireDate;
         public string HireDate

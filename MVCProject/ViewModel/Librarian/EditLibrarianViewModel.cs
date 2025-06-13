@@ -5,7 +5,10 @@ namespace MVCProject.ViewModel.Librarian
     public class EditLibrarianViewModel
     {
         public int Id { get; set; }
+        [MaxLength(25)]
         public string Name { get; set; }
+
+        [Range(1000 , 5000)]
         public double Salary { get; set; }
         [MaxLength(14, ErrorMessage = "Maximum Number is 14 Digits")]
         public string National_Number { get; set; }
