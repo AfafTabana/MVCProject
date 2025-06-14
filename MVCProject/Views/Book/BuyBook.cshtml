@@ -4,6 +4,12 @@
 }
 
 <h2>Buy @Model.BookTitle</h2>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
 
 <form asp-action="ConfirmPurchase" method="post">
     <input type="hidden" asp-for="BookId" />
@@ -13,11 +19,19 @@
     </div>
     <div class="form-group">
         <label asp-for="QuantityToBuy"></label>
-        <input asp-for="QuantityToBuy" class="form-control" />
+        <input asp-for="QuantityToBuy"
+               class="form-control"
+               type="number"
+               min="1"
+               max="@Model.AvailableQuantity"
+               required
+               oninvalid="this.setCustomValidity('Please enter a valid quantity (1 to @Model.AvailableQuantity)')"
+               oninput="this.setCustomValidity('')" />
         <span asp-validation-for="QuantityToBuy" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-success">Confirm Purchase</button>
 </form>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -70,7 +70,7 @@ namespace MVCProject.Controllers
             {
                 Books _Book = mapper.Map<Books>(Book);
                 bookRepository.AddBook(_Book);
-                return RedirectToAction("DisplayAllBooksForUser");
+                return RedirectToAction("DisplayAllBooksForLibrarian");
 
             }
             // Ahmed Ashraf 
@@ -157,8 +157,8 @@ namespace MVCProject.Controllers
             var book = bookRepository.GetBookById(vm.BookId);
             if (book == null || vm.QuantityToBuy > book.Buy_quantity)
             {
-                ModelState.AddModelError("", "Invalid Quantity");
-                return View(vm);
+                TempData["Error"] = "Invalid quantity. Please check available stock.";
+                return RedirectToAction("BuyBook", new { id = vm.BookId });
             }
           
            
