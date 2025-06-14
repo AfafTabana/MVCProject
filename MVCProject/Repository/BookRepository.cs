@@ -60,7 +60,9 @@ namespace MVCProject.Repository
         public List<Books> SearchBookByTitle(string title)
         {
             return _context.Books
-                .Where(b => b.Title.Contains(title)).ToList();
+                     .Include(b => b.categeory) 
+                     .Where(b => b.Title.Contains(title))
+                     .ToList();
         }
 
         public void UpdateBook(Books book)

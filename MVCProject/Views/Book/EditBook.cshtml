@@ -4,83 +4,118 @@
     ViewData["Title"] = "Edit Book";
 }
 
-<h2 class="text-xl font-semibold mb-4">Edit Book</h2>
+<div class="container mt-5">
+    <h2 class="text-primary mb-4 display-6">Edit <span class="fw-semibold">@Model.Title</span></h2>
 
-<form asp-action="UpdateBook" method="post" class="max-w-xl bg-white p-6 rounded shadow space-y-4">
-    <input type="hidden" asp-for="ID" />
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
-    <div>
-        <label asp-for="ID" class="block text-sm font-medium text-gray-700">ID</label>
-        <input asp-for="ID" disabled class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="ID" class="text-red-500 text-xs" ></span>
-    </div>
+    <form asp-action="UpdateBook" method="post" class="bg-light p-4 rounded shadow-sm">
+        <input type="hidden" asp-for="ID" />
 
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    @* <label asp-for="ID" class="form-label text-primary ">ID</label> *@
+                    <input type="hidden" asp-for="ID" disabled class="form-control" />
+                    <span asp-validation-for="ID" class="text-danger small"></span>
+                </div>
+            </div>
+        </div>
 
-    <div>
-        <label asp-for="Title" class="block text-sm font-medium text-gray-700">Title</label>
-        <input asp-for="Title" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="Title" class="text-red-500 text-xs" ></span>
-    </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label text-primary">Title</label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger small"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label text-primary">Image URL</label>
+                    <input asp-for="ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                </div>
+            </div>
+        </div>
 
-    <div>
-        <label asp-for="Description" class="block text-sm font-medium text-gray-700">Description</label>
-        <textarea asp-for="Description" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2"></textarea>
-        <span asp-validation-for="Description" class="text-red-500 text-xs" ></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label text-primary">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Description" class="text-danger small"></span>
+        </div>
 
-    <div>
-        <label asp-for="ImageUrl" class="block text-sm font-medium text-gray-700">Image URL</label>
-        <input asp-for="ImageUrl" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="ImageUrl" class="text-red-500 text-xs" ></span>
-    </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label text-primary">Price</label>
+                    <input asp-for="Price" type="number" step="0.01" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger small"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label asp-for="Borrow_Price" class="form-label text-primary">Borrow Price</label>
+                    <input asp-for="Borrow_Price" type="number" class="form-control" />
+                    <span asp-validation-for="Borrow_Price" class="text-danger small"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label asp-for="Cat_Id" class="form-label text-primary">Category ID</label>
+                    <input asp-for="Cat_Id" type="number" class="form-control" />
+                    <span asp-validation-for="Cat_Id" class="text-danger small"></span>
+                </div>
+            </div>
+        </div>
 
-    <div>
-        <label asp-for="Price" class="block text-sm font-medium text-gray-700">Price</label>
-        <input asp-for="Price" type="number" step="0.01" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="Price" class="text-red-500 text-xs" ></span>
-    </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Author_Name" class="form-label text-primary">Author Name</label>
+                    <input asp-for="Author_Name" class="form-control" />
+                    <span asp-validation-for="Author_Name" class="text-danger small"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Publisher_Name" class="form-label text-primary">Publisher Name</label>
+                    <input asp-for="Publisher_Name" class="form-control" />
+                    <span asp-validation-for="Publisher_Name" class="text-danger small"></span>
+                </div>
+            </div>
+        </div>
 
-    <div>
-        <label asp-for="Borrow_Price" class="block text-sm font-medium text-gray-700">Borrow Price</label>
-        <input asp-for="Borrow_Price" type="number" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="Borrow_Price" class="text-red-500 text-xs" ></span>
-    </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Borrow_quantity" class="form-label text-primary">Borrow Quantity</label>
+                    <input asp-for="Borrow_quantity" type="number" class="form-control" />
+                    <span asp-validation-for="Borrow_quantity" class="text-danger small"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Buy_quantity" class="form-label text-primary">Buy Quantity</label>
+                    <input asp-for="Buy_quantity" type="number" class="form-control" />
+                    <span asp-validation-for="Buy_quantity" class="text-danger small"></span>
+                </div>
+            </div>
+        </div>
 
-    <div>
-        <label asp-for="Borrow_quantity" class="block text-sm font-medium text-gray-700">Borrow Quantity</label>
-        <input asp-for="Borrow_quantity" type="number" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="Borrow_quantity" class="text-red-500 text-xs"></span>
-    </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success px-4">Save Changes</button>
+            <a asp-action="DisplayAllBooksForLibrarian" class="btn btn-outline-secondary ms-3">Cancel</a>
+        </div>
+    </form>
+</div>
 
-    <div>
-        <label asp-for="Buy_quantity" class="block text-sm font-medium text-gray-700">Buy Quantity</label>
-        <input asp-for="Buy_quantity" type="number" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="Buy_quantity" class="text-red-500 text-xs" ></span>
-    </div>
-
-    <div>
-        <label asp-for="Author_Name" class="block text-sm font-medium text-gray-700">Author Name</label>
-        <input asp-for="Author_Name" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="Author_Name" class="text-red-500 text-xs" ></span>
-    </div>
-
-    <div>
-        <label asp-for="Publisher_Name" class="block text-sm font-medium text-gray-700">Publisher Name</label>
-        <input asp-for="Publisher_Name" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="Publisher_Name" class="text-red-500 text-xs" ></span>
-    </div>
-
-    <div>
-        <label asp-for="Cat_Id" class="block text-sm font-medium text-gray-700">Category ID</label>
-        <input asp-for="Cat_Id" type="number" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2" />
-        <span asp-validation-for="Cat_Id" class="text-red-500 text-xs" ></span>
-    </div>
-
-    <div class="pt-4">
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
-        <a asp-action="DisplayAllBooksForLibrarian" class="ml-4 text-gray-600 hover:underline">Cancel</a>
-    </div>
-</form>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

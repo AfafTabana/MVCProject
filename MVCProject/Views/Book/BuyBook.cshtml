@@ -1,37 +1,51 @@
 ﻿@model BuyBookViewModel
+
 @{
     ViewData["Title"] = "Buy";
 }
 
-<h2>Buy @Model.BookTitle</h2>
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Error"]
-    </div>
-}
+<div class="container mt-5">
+    <h2 class="text-primary mb-4 display-6">Buy <span class="fw-semibold">@Model.BookTitle</span></h2>
 
-<form asp-action="ConfirmPurchase" method="post">
-    <input type="hidden" asp-for="BookId" />
-    <div class="form-group">
-        <label>Price: @Model.Price</label><br />
-        <label>Available: @Model.AvailableQuantity</label>
-    </div>
-    <div class="form-group">
-        <label asp-for="QuantityToBuy"></label>
-        <input asp-for="QuantityToBuy"
-               class="form-control"
-               type="number"
-               min="1"
-               max="@Model.AvailableQuantity"
-               required
-               oninvalid="this.setCustomValidity('Please enter a valid quantity (1 to @Model.AvailableQuantity)')"
-               oninput="this.setCustomValidity('')" />
-        <span asp-validation-for="QuantityToBuy" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-success">Confirm Purchase</button>
-</form>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
+    <form asp-action="ConfirmPurchase" method="post" class="bg-light p-4 rounded shadow-sm">
+        <input type="hidden" asp-for="BookId" />
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="border rounded p-3 bg-white">
+                    <strong>Price:</strong> <span class="text-success">@Model.Price.ToString("C")</span><br />
+                    <strong>Available:</strong> <span class="text-info">@Model.AvailableQuantity</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="QuantityToBuy" class="form-label text-primary"> Enter Quantity </label>
+            <input asp-for="QuantityToBuy"
+                   class="form-control"
+                   type="number"
+                   min="1"
+                   max="@Model.AvailableQuantity"
+                   required
+                   oninvalid="this.setCustomValidity('Please enter a quantity between 1 and @Model.AvailableQuantity')"
+                   oninput="this.setCustomValidity('')" />
+            <span asp-validation-for="QuantityToBuy" class="text-danger small"></span>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success px-4">Confirm Purchase</button>
+            <a asp-action="DisplayAllBooksForLibrarian" class="btn btn-outline-secondary ms-3">Cancel</a>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
