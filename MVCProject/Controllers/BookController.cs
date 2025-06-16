@@ -64,8 +64,30 @@ namespace MVCProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddBook(AddBookViewModel Book)
+        public async Task<IActionResult> AddBook(AddBookViewModel Book, IFormFile photo)
         {
+
+            if (photo != null && photo.Length > 0)
+            {
+
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
+                string imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+
+                if (!Directory.Exists(imagesFolder))
+                    Directory.CreateDirectory(imagesFolder);
+
+                string filePath = Path.Combine(imagesFolder, fileName);
+                Console.WriteLine("Saving to: " + filePath);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await photo.CopyToAsync(stream);
+                }
+
+                 Book.ImageUrl = "/images/" + fileName;
+            }
+
             if (ModelState.IsValid==true)
             {
                 Books _Book = mapper.Map<Books>(Book);
@@ -125,8 +147,28 @@ namespace MVCProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateBook(EditBookViewModel Book)
+        public async Task<IActionResult> UpdateBook(EditBookViewModel Book, IFormFile photo)
         {
+            if (photo != null && photo.Length > 0)
+            {
+
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
+                string imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+
+                if (!Directory.Exists(imagesFolder))
+                    Directory.CreateDirectory(imagesFolder);
+
+                string filePath = Path.Combine(imagesFolder, fileName);
+                Console.WriteLine("Saving to: " + filePath);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await photo.CopyToAsync(stream);
+                }
+
+                Book.ImageUrl = "/images/" + fileName;
+            }
 
             if (ModelState.IsValid == true)
             {
