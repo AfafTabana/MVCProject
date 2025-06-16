@@ -92,7 +92,7 @@ namespace MVCProject.Controllers
             {
                 Books _Book = mapper.Map<Books>(Book);
                 bookRepository.AddBook(_Book);
-                return RedirectToAction("DisplayAllBooksForUser");
+                return RedirectToAction("DisplayAllBooksForLibrarian");
 
             }
             // Ahmed Ashraf 
@@ -130,10 +130,16 @@ namespace MVCProject.Controllers
             List<DisplayBookUserViewModel> _Books = mapper.Map<List<DisplayBookUserViewModel>>(Books);
             return View("DisplayByTitle", _Books);
         }
+        //public IActionResult DisplayAllBooksForLibrarian()
+        //{
+        //    List<Books> AllBooks = bookRepository.GetAllBooks().ToList();
+        //    List<DisplayBookForLibrarianViewModel> Books = mapper.Map<List<DisplayBookForLibrarianViewModel>>(AllBooks);
+        //    return View("DisplayAllBooksForLibrarian", Books);
+        //}
 
         public IActionResult SearchBookByTitleForLibrarian(string title)
         {
-            List<Books> Books = bookRepository.SearchBookByTitle(title);
+            List<Books> Books = bookRepository.SearchBookByTitle(title).ToList();
             List<DisplayBookForLibrarianViewModel> _Books = mapper.Map<List<DisplayBookForLibrarianViewModel>>(Books);
             return View("DisplayByTitleForLibrarian", _Books);
 
@@ -199,8 +205,8 @@ namespace MVCProject.Controllers
             var book = bookRepository.GetBookById(vm.BookId);
             if (book == null || vm.QuantityToBuy > book.Buy_quantity)
             {
-                ModelState.AddModelError("", "Invalid Quantity");
-                return View(vm);
+                TempData["Error"] = "Invalid quantity. Please check available stock.";
+                return RedirectToAction("BuyBook", new { id = vm.BookId });
             }
           
            

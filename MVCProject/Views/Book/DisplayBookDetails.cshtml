@@ -4,20 +4,90 @@
     ViewData["Title"] = "Book Details";
 }
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1">
-        <div class="h-64 bg-gray-100 flex items-center justify-center">
-            <img src="@Model.ImageUrl" alt="Book cover" class="h-full object-contain">
-        </div>
-        <div class="p-4 space-y-1">
-            <h3 class="font-bold text-gray-800 text-lg">@Model.Title</h3>
-            <p class="text-gray-600 text-sm">Author: <span class="text-black">@Model.Author_Name</span></p>
-            <p class="text-gray-600 text-sm">Category: <span class="text-black">@Model.Categeory_Name</span></p>
-            <p class="text-gray-600 text-sm">Price: <span class="text-black">@Model.Price</span></p>
-            <p class="text-gray-600 text-sm">Borrow Price: <span class="text-black">@Model.Borrow_Price</span></p>
-            <p class="text-gray-600 text-sm">Available to Borrow: <span class="text-black">@Model.Borrow_quantity</span></p>
-            <p class="text-gray-600 text-sm">Available to Buy: <span class="text-black">@Model.Buy_quantity</span></p>
-            <p class="text-gray-700 text-sm mt-2">@Model.Description</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="row g-0">
+                    <div class="col-md-5 d-flex align-items-center bg-light p-4">
+                        <img src="@Model.ImageUrl" alt="Book cover" class="img-fluid rounded-start" style="max-height: 400px; width: 100%; object-fit: contain;">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body p-4">
+                            <h2 class="card-title text-primary mb-3">@Model.Title</h2>
+
+                            <div class="mb-4">
+                                <p class="mb-2">
+                                    <span class="text-muted">Author:</span>
+                                    <span class="fw-bold">@Model.Author_Name</span>
+                                </p>
+                                <p class="mb-2">
+                                    <span class="text-muted">Category:</span>
+                                    <span class="badge bg-light text-dark">@Model.Categeory_Name</span>
+                                </p>
+                                <p class="mb-2">
+                                    <span class="text-muted">Price:</span>
+                                    <span class="text-success fw-bold">@Model.Price.ToString("C")</span>
+                                </p>
+                                <p class="mb-2">
+                                    <span class="text-muted">Borrow Price:</span>
+                                    <span class="text-info fw-bold">@Model.Borrow_Price.ToString("C")</span>
+                                </p>
+                            </div>
+
+                            <div class="d-flex gap-4 mb-4">
+                                <div>
+                                    <span class="text-muted d-block">Available to Borrow:</span>
+                                    <span class="@(Model.Borrow_quantity > 0 ? "text-success" : "text-danger") fw-bold">
+                                        @Model.Borrow_quantity @(Model.Borrow_quantity == 1 ? "copy" : "copies")
+                                    </span>
+                                </div>
+                                <div>
+                                    <span class="text-muted d-block">Available to Buy:</span>
+                                    <span class="@(Model.Buy_quantity > 0 ? "text-success" : "text-danger") fw-bold">
+                                        @Model.Buy_quantity @(Model.Buy_quantity == 1 ? "copy" : "copies")
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="border-top pt-3 mb-4">
+                                <h5 class="text-muted mb-2">Description</h5>
+                                <p class="card-text">@Model.Description</p>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-4">
+                                @if (Model.Borrow_quantity > 0)
+                                {
+                                    <a href="@Url.Action("BorrowBook", "Book", new { id = Model.ID })"
+                                       class="btn btn-outline-primary flex-grow-1">
+                                        <i class="fas fa-book-open me-2"></i>Borrow
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-secondary flex-grow-1" disabled>
+                                        <i class="fas fa-book-open me-2"></i>Borrow Unavailable
+                                    </button>
+                                }
+
+                                @if (Model.Buy_quantity > 0)
+                                {
+                                    <a href="@Url.Action("BuyBook", "Book", new { id = Model.ID })"
+                                       class="btn btn-primary flex-grow-1">
+                                        <i class="fas fa-shopping-cart me-2"></i>Buy Now
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-secondary flex-grow-1" disabled>
+                                        <i class="fas fa-shopping-cart me-2"></i>Out of Stock
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
