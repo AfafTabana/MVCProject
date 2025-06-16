@@ -240,55 +240,56 @@ namespace MVCProject.Controllers
             return View();
         }
 
+
+
+
+
          #region Borrowing Books
 
-        public IActionResult ConfirmBorrowing()
+        
+
+
+        public IActionResult BorrowBookView(int id)
         {
-            //if book borrow quantity is 0, then the book cannot be borrowed and does not show the borrow button
+            // This action will display the form for borrowing a book
+            // It will pre-fill the book details based on the book ID
+            Books book = bookRepository.GetBookById(id);
+            if (book == null || book.Borrow_quantity == 0) return NotFound();
+            string nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Users user = userRepository.getUserByApplicationUserId(nameIdentifier);
+            if (user == null) return Unauthorized(); // Ensure the user is logged in
 
-
-            //take book data from the book card  and in the DisplayBookDetails view 
-            //and pass it to the BorrowBookView
-            //make form wuth pre-filled book details
-            //borrowbook action will handle the form submission and retrieve the user input 
-
-
-            // Assuming you have a way to get the list of books and users for the dropdowns
-            //it is linked to a button in the DisplayBookDetails view
-            //triggered when the user clicks on "Borrow Book"
-
-            return RedirectToAction("DisplayAllBooksForUser");
-
+            BorrowBookViewModel borrowModel = new BorrowBookViewModel
+            {
+                BookId = book.ID,
+                BookTitle = book.Title,
+                BookAuthor = book.Author_Name,
+                BorrowDate = DateTime.Now,
+                DueDate = DateTime.Now,
+                Price = book.Borrow_Price,
+                UserId = user.Id // Assuming you want to get the user ID from the logged-in user
+                               
+                //get from identity
+            };
+            return View("BorrowBookview", borrowModel);
         }
 
 
-        public IActionResult BorrowBook(int id) {
+        public IActionResult BorrowBook(BorrowBookViewModel borrow) {
             // This action will handle the form submission from the BorrowBookView
 
-            //int bookId = Convert.ToInt32(Request.Form["bookId"]);//getting bookId from form data
-            //int userId = Convert.ToInt32(Request.Form["userId"]);//getting userId from form data
-            string nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            int userId = 0;
 
-            Users user = userRepository.getUserByApplicationUserId(nameIdentifier);
-
-            userId = user.Id;
-            int borrowPrice = 100 ; // Assuming a price of 0 for borrowing, you can set it as needed
-            //int borrowPrice = bookRepository.GetBookPriceById(id) ; // Assuming a price of 0 for borrowing, you can set it as needed
-            DateTime startDate = DateTime.Now; // Assuming the borrowing starts now[should get that from form ]
-            DateTime dueDate = startDate.AddDays(14); // Assuming a 2-week borrowing period
             
-            Borrow borrow = new Borrow
+            Borrow myborrow = new Borrow
             {
-                Book_ID = id,
-                User_ID = userId,
-                StartDate = startDate,
-                DueDate = dueDate,
-                Price = borrowPrice // Set the price as needed
+                Book_ID = borrow.BookId,
+                User_ID = borrow.UserId,
+                StartDate = borrow.BorrowDate,
+                DueDate = borrow.DueDate,
+                Price = borrow.Price // Set the price as needed
             };
-            Borrow.BorrowBook(borrow);
+            Borrow.BorrowBook(myborrow);
 
-            //create a reciept or confirmation message
             
             return RedirectToAction("DisplayAllBooksForUser");
         }

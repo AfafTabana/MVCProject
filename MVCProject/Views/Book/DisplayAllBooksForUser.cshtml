@@ -49,10 +49,6 @@
                     <div class="card-footer bg-white border-0 d-flex justify-content-between">
                         @if (book.Buy_quantity > 0)
                         {
-                            <a href="@Url.Action("BorrowBook", "Book", new { id = book.ID })"
-                               class="btn btn-outline-primary btn-sm">
-                                Borrow
-                            </a>
                             <a href="@Url.Action("BuyBook", "Book", new { id = book.ID })"
                                class="btn btn-primary btn-sm">
                                 Buy
@@ -60,9 +56,22 @@
                         }
                         else
                         {
-                            <button class="btn btn-outline-secondary btn-sm" disabled>Borrow</button>
+
                             <button class="btn btn-secondary btn-sm" disabled>Buy</button>
                         }
+                        @if (book.Borrow_quantity > 0)
+                        {
+                            <a href="@Url.Action("BorrowBookView", "Book", new { id = book.ID })"
+                               class="btn btn-success btn-sm">
+                                Borrow
+                            </a>
+                        }
+                        else
+                        {
+
+                            <button class="btn btn-secondary btn-sm" disabled>Borrow</button>
+						}
+                        
                     </div>
                 
                 </div>
