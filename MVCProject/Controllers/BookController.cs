@@ -86,6 +86,7 @@ namespace MVCProject.Controllers
                 }
 
                  Book.ImageUrl = "/images/" + fileName;
+
             }
 
             if (ModelState.IsValid==true)

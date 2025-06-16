@@ -12,10 +12,12 @@ namespace MVCProject.ViewModel.Book
 
         public string Description { set; get; }
 
-        public string ImageUrl { set; get; }
+        public string? ImageUrl { set; get; }
 
         [Required(ErrorMessage = "Please upload a file.")]
-        [RegularExpression(@"^.*\.(png|jpg)$", ErrorMessage = "Image must end with png or jpg extension")]
+        //[RegularExpression(@".*\.(png|jpg|PNG|JPG)$", ErrorMessage = "Image must end with .png or .jpg extension")]
+
+
         public IFormFile photo { get; set; }
 
         [Range(500, 2000, ErrorMessage = "Price Must Be between 500 and 2000")]

@@ -42,7 +42,7 @@ namespace MVCProject
             builder.Services.AddScoped<IUserRepository, UsersRepository>();
             builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
 
-
+            builder.Services.AddControllersWithViews();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -54,10 +54,11 @@ namespace MVCProject
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseAuthorization();
-
+         
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
