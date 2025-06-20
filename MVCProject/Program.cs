@@ -60,6 +60,19 @@ namespace MVCProject
             app.UseAuthorization();
          
             app.MapStaticAssets();
+
+            app.MapControllerRoute("Route1" , "DisplayAll" ,new
+            {
+                Controller = "Book" , action = "DisplayAllBooksForLibrarian"
+
+            });
+
+            app.MapControllerRoute("Route1", "AllBooks", new
+            {
+                Controller = "Book",
+                action = "DisplayAllBooksForUser"
+
+            });
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")

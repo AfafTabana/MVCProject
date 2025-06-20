@@ -58,7 +58,7 @@
                             <div class="d-flex gap-2 mt-4">
                                 @if (Model.Borrow_quantity > 0)
                                 {
-                                    <a href="@Url.Action("BorrowBook", "Book", new { id = Model.ID })"
+                                    <a href="@Url.Action("BorrowBookView", "Book", new { id = Model.ID })"
                                        class="btn btn-outline-primary flex-grow-1">
                                         <i class="fas fa-book-open me-2"></i>Borrow
                                     </a>
@@ -84,6 +84,13 @@
                                     </button>
                                 }
                             </div>
+
+                            <div class="mt-4 d-flex justify-content-center">
+                                <a asp-action="DisplayAllBooksForUser" asp-controller="Book" class="btn btn-link text-decoration-none">
+                                    <i class="fas fa-arrow-left me-1"></i> Back to List
+                                </a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
