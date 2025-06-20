@@ -40,6 +40,7 @@ namespace MVCProject.Controllers
         
         public IActionResult DisplayAllBooksForUser()
         {
+            
             List<Books> AllBooks = bookRepository.GetAllBooks().ToList();
             List<DisplayBookUserViewModel> Books = mapper.Map<List<DisplayBookUserViewModel>>(AllBooks);
             return View("DisplayAllBooksForUser", Books);
@@ -47,6 +48,7 @@ namespace MVCProject.Controllers
 
         public IActionResult DisplayAllBooksForLibrarian()
         {
+           
             List<Books> AllBooks = bookRepository.GetAllBooks().ToList();
             List<DisplayBookForLibrarianViewModel> Books = mapper.Map<List<DisplayBookForLibrarianViewModel>>(AllBooks);
             return View("DisplayAllBooksForLibrarian", Books);
