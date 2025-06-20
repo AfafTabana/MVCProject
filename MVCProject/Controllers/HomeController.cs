@@ -12,11 +12,16 @@ namespace MVCProject.Controllers
         {
             _logger = logger;
         }
+        
 
         public IActionResult Index()
         {
             return View();
         }
+        //public IActionResult erroe()
+        //{
+        //    throw new Exception();
+        //}
 
         public IActionResult Privacy()
         {

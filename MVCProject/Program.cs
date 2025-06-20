@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MVCProject.Customfilters;
 using MVCProject.Mapper;
 using MVCProject.Models;
 using MVCProject.Repository;
@@ -41,6 +42,13 @@ namespace MVCProject
             builder.Services.AddScoped<ISalesRepository,SalesRepository>();
             builder.Services.AddScoped<IUserRepository, UsersRepository>();
             builder.Services.AddScoped<IBorrowRepository, BorrowRepository>();
+
+            // Exception Handiling By Using Customm Filter ,,,,!
+
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<MyFilters>();
+            });
 
 
             var app = builder.Build();
